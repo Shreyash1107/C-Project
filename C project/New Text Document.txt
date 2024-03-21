@@ -1,0 +1,121 @@
+#include<stdio.h>
+#include<string.h>
+#include"Customer.h"
+#include"Addcustomer.h"
+#include "showcustomer.h"
+#include "Searchcustomerbyid.h"
+#include "Searchcustomerbyname.h"
+#include "Supplier.h"
+#include "AddSupplier.h"
+#include "Showsupplier.h"
+#include "Searchsupplierbyid.h"
+#include "Searchsupplierbyname.h"
+struct customer C;
+struct supplier S;
+int main()
+{
+	char myuserid[]="Shreyash"; // Correct User name 
+	char userid[100]; // User name entered by user
+	printf("\nEnter your own username:\n");
+	gets(userid);
+	
+	if(strcmp(userid,myuserid)!= 0)
+	{
+		printf("\nInvalid Usename:\n");
+		return 1;
+	}
+	char mypassword[]="Shreyash@123";  //Correct Password
+	char Password[50]; // Password entered by user
+	printf("\nEnter your own Password:\n");
+	gets(Password);
+	
+	if(strcmp(Password,mypassword)!= 0)
+	{
+		printf("\nInvalid Password entered by user:\n");
+		return 1; //exit the program as passif password is incorrect
+	}
+	
+	FILE *fptr;
+	int choice;
+	fptr=fopen("D:\\C Project\\Customer.txt","a+");
+   	printf("\nCUSTOMER DATA\n");
+	do{
+     	fptr=fopen("D:\\C Project\\Customer.txt","a+");
+     	printf("\n1.Add Customers:\n");
+     	printf("\n2.Show the list of the customers:\n");
+     	printf("\n3.Search Customer by id:\n");
+     	printf("\n4.Search Customer by name:\n");
+     	printf("\n5.Update Customer details:\n");
+     	printf("\nEnter the choice:\n");
+     	scanf("%d",&choice);
+     	
+     	switch(choice){
+     		case 1:
+     		printf("\nEnter the customer id,customer name,city,mobile number,email:\n");
+     		scanf("%d%s%s%s%s",&C.cust_id,&C.cust_name,&C.city,&C.mob_no,&C.email);
+     		Addcustomer(C,fptr);
+     			break;
+     			
+     			case 2:
+     				showcustomer(C,fptr);
+     				break;
+     				
+     				case 3:
+     					int custid;
+     					printf("\nEnter the customer id:\n");
+     					scanf("%d",&custid);
+     					searchcustomerbyID(C,custid,fptr);
+     					break;
+     					
+     					case 4:
+     						char custname[100];
+     						printf("\nEnter the customer name:\n");
+     						scanf("%s",&custname);
+     						searchcustomerbyname(C,custname,fptr);
+     						break;
+     			
+     			default:
+     				printf("\nInvalid Choice Entered:\n");
+     	}
+	 }while(choice<=4);
+	 int ch;
+	 FILE *fptr1;
+	 do{
+	 	fptr1=fopen("D:\\C Project\\Supplier.txt","a+");
+     	printf("\n1.Add Suppliers:\n");
+     	printf("\n2.Show the list of the Suppliers:\n");
+     	printf("\n3.Search Supplier by id:\n");
+     	printf("\n4.Search Supplier by name:\n");
+     	printf("\n5.Update Supplier details:\n");
+     	printf("\nEnter the choice:\n");
+     	scanf("%d",&ch);
+     	
+     	    switch(ch)
+     	    {
+     	    	case 1:
+     	    		printf("\nEnter the supplier id,supplier name,city,mobile number,email");
+     	    		scanf("%d %s %s %s %s",&S.supplier_id,&S.supplier_name,&S.temp1.mob_no,&S.temp1.city,&S.temp1.email);
+     	    		AddSupplier(S,fptr1);
+     	    		break;
+     	    		case 2:
+     	    			showsupplier(S,fptr1);
+     	    			break;
+     	    			case 3:
+     	    				int supp_id;
+     	    				printf("\nEnter the supplier id:\n");
+     	    				scanf("%d",&supp_id);
+     	    				SearchsupplierbyID(S,supp_id,fptr1);
+     	    				break;
+     	    				case 4:
+     	    					char supp_name[100];
+     	    					printf("\nEnter the supplier name:\n");
+     	    					scanf("%s",&supp_name);
+     	    					Searchsupplierbyname(S,supp_name,fptr1);
+     	    					break;
+     	    		 default:
+     	    			printf("\nInvalid Input By user\n");
+     	    			break;
+			 }
+	 }while(ch<=4);
+	
+}
